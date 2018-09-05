@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bing.css">
+    <script src="d3.js"></script>
+    <script src="jquery-1.11.3.js"></script>
+
+
+    <!--右下角的图形的插件开始-->
+
+
+
+    <!--右下角的图形的插件结束-->
+</head>
+<body>
+<div id="nav">
+    海尔冰箱的销售情况分析
+</div>
+<div id="content">
+    <div id="left">
+        <div id="left-top">
+        </div>
+        <div id="left-bottom">
+            <p>海尔冰箱--Top10</p>
+            <div id="wufeng">
+                <ul>
+                    <li>
+                        1、BCD-160TMPQ 160升双门冷藏冷冻小型家用节能两门冰箱-¥1399-2037-¥2442363
+
+                    </li>
+                    <li>
+                        2、BCD-206STPA 206升三门冷藏小型家用节能小冰箱软冷冻-¥1599-1682-¥2521318
+
+                    </li>
+                    <li>
+                        3、BCD-258WDPM三门无霜节能小型冰箱电脑控温家用冰箱-¥3099-298-¥2854302
+
+                    </li>
+                    <li>
+                        4、BCD-217WDVLU1三门双变频智能风冷节能小型家用电冰箱-¥3299-1199-¥2996301
+
+                    </li>
+                    <li>
+                        5、BCD-572WDENU1 572升WIFI智能变频风冷无霜对开门冰箱-¥4099-862-¥3053138
+
+                    </li>
+                    <li>
+                        6、BCD-452WDPF 风冷无霜双门对开门冰箱家用电冰箱-¥3799-861-¥2582139
+
+                    </li>
+                    <li>
+                        7、BCD-576WDPU 对开门双开门风冷无霜变频家用保鲜冰箱-¥4199-855-¥2820645
+
+                    </li>
+                    <li>
+                        8、BC-93TMPF 93升单门冷藏家用节能小型电冰箱 农村可送-¥899-700-¥559300
+
+                    </li>
+                    <li>
+                        9、BCD-470WDPG 十字对开变频静音节能干湿分储电冰箱-¥5999-696	-¥3340104
+
+                    </li>
+                    <li>
+                        10、 BCD-572WDENU1冰箱双门双开门对开门变频无霜家用-¥4099-469-¥1641031
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div id="middle">
+        <div id="middle-top"></div>
+        <div id="middle-bottom">
+            <div id="choose">
+                <span id="span">海尔冰箱2017.8-2018.8全年的销售情况</span>
+                <select name="" id="select">
+                    <option value="0">全部</option>
+                    <option value="1">淘宝</option>
+                    <option value="2">天猫</option>
+                </select>
+            </div>
+            <div id="middle-bottom-bottom"></div>
+        </div>
+    </div>
+   <div id="right">
+       <div id="right-top"></div>
+       <div id="right-bottom">
+           <p id="right-bot">海尔冰箱近期环比率的情况</p>
+           <iframe src="right.html" frameborder="0"></iframe>
+       </div>
+   </div>
+</div>
+</body>
+</html>
+<script>
+    /******************左上角图的设计******************/
+    //饼状图的封装
+    var arr1=[42,41,39,35,21,3];
+    var arr2=['多门','对开门','三门','双门','十字对开门','单门'];
+    pieDraw("left-top",arr1);
+    function pieDraw(id,data){
+        var colors=['#207CFF','#139AFF','#16B9FF','#48D3FF','#37EBFF','#73FFEE'];
+        //定义饼状生成器
+        var _pie=d3.pie()
+            .sort(function(a,b){
+                return b-a;
+            });
+        //处理数据
+        var sum=0;
+        for(var i=0;i<data.length;i++){
+            sum+=data[i]
+        }
+
+        var dataset=_pie(data);
+        console.log(dataset);
+//绘制画布
+        var _svg=d3.select('#'+id)
+            .append('svg')
+            .attr('id','svg1');
+        //定义环形生成器
+        var _arc=d3.arc()
+            .innerRadius(20)
+            .outerRadius(80)
+            .padAngle(3*Math.PI/180);
+        //设计6个环形生成器
+        var _arc1=d3.arc()
+            .innerRadius(10)
+            .outerRadius(40)
+            .padAngle(3*Math.PI/180);
+        var _arc2=d3.arc()
+            .innerRadius(10)
+            .outerRadius(50)
+            .padAngle(3*Math.PI/180);
+        var _arc3=d3.arc()
+            .innerRadius(10)
+            .outerRadius(60)
+            .padAngle(3*Math.PI/180);
+        var _arc4=d3.arc()
+            .innerRadius(10)
+            .outerRadius(70)
+            .padAngle(3*Math.PI/180);
+        var _arc5=d3.arc()
+            .innerRadius(10)
+            .outerRadius(80)
+            .padAngle(3*Math.PI/180);
+        var _arc6=d3.arc()
+            .innerRadius(10)
+            .outerRadius(90)
+            .padAngle(3*Math.PI/180);
+        var _arcs=[_arc1,_arc2,_arc3,_arc4,_arc5,_arc6];
+        //在画布中创建一个title的g组
+
+        var _pieTitle=_svg.append('g')
+            .attr('id','title1');
+        var _title=_pieTitle.append('text')
+            .attr('transform','translate(40,50)')
+            .attr('fill','white')
+            .style('font-size','20px')
+            .text('海尔冰箱门型的占比分析');
+        //创建一个path的g组
+        var _pieDraw=_svg.append('g')
+            .attr('id','pie1')
+            .attr('transform','translate(180,165)');
+        //在画布中创建一个path
+        var _path=_pieDraw.selectAll('path')
+            .data(dataset)
+            .enter()
+            .append('path')
+            .attr('d',function(d,i){
+                return _arcs[i](d)
+            })
+            .attr('fill',function(d,i){
+                return colors[i]
+            });
+        //
+        // /*****************文本显示部分****************/
+        var _text=_pieDraw.selectAll('text')
+            .data(dataset)
+            .enter()
+            .append("text")
+            .classed('text1',true)
+            .text(function(d,i){
+               return `${(d.data/sum).toFixed(2)*100}%`;
+            })
+            .attr('x',function(d,i){
+                //获取环形中心点的坐标X
+                return _arcs[i].centroid(d)[0]+5
+
+            })
+            .attr('y',function(d,i){
+                return _arcs[i].centroid(d)[1]
+            })
+            .attr('dy','0.5em')
+            .attr('dx',-10)
+            .attr('fill','white')
+            .style('font-size','14px')
+            .attr('rotate',10);
+
+        //创建一个g组作为--六个矩形的颜色显示
+        var _circless=_svg.selectAll('circle')
+            .data(arr1)
+            .enter()
+            .append('circle')
+            .attr('class','_circless')
+            .attr('cx',15)
+            .attr('cy',function(d,i){
+                return 20*i+95
+            })
+            .attr('r',5)
+            .attr('fill',function(d,i){
+                return colors[i]
+            });
+        var _textName=_svg.selectAll('.textName')
+            .data(arr1)
+            .enter()
+            .append('text')
+            .attr('class','textName')
+            .attr('x',25)
+            .attr('y',function(d,i){
+                return 20*i+100
+            })
+            .text(function(d,i){
+                return arr2[i]
+            })
+            .attr('fill','white')
+            .style('font-size','12px')
+
+    }
+
+
+/***************右下角--卖的较好的产品介绍无缝滚动*********************/
+    //设置定时器实现ul的自动滚动；
+        wufeng();
+    function wufeng() {
+        var wuDiv = document.getElementById("wufeng");
+        var ul = document.getElementById("wufeng").getElementsByTagName("ul")[0];
+        var ul2 = ul.cloneNode(true);
+        wuDiv.append(ul2);
+        var timer = window.setInterval(fn, 30);
+
+        function fn() {
+            if (wuDiv.scrollTop <= ul.offsetHeight) {
+                wuDiv.scrollTop++;
+            } else {
+                wuDiv.scrollTop = 0;
+            }
+        }
+        wuDiv.onmouseover=function(){
+                clearInterval(timer)
+        };
+        wuDiv.onmouseout=function(){
+            timer=window.setInterval(fn, 30)
+        }
+    }
+
+
+    //第一步定义地图的数据
+       var dataset = [
+            {name: '安徽', value: 44},
+            {name: '北京', value: 10},
+            {name: '重庆', value: 30},
+            {name: '福建', value: 30},
+            {name: '广东', value: 34},
+            {name: '甘肃', value: 26},
+            {name: '广西', value: 20},
+            {name: '贵州', value: 46},
+            {name: '河北', value: 78},
+            {name: '黑龙江', value: 16},
+            {name: '河南', value: 70},
+            {name: '海南', value: 20},
+            {name: '湖北', value: 18},
+            {name: '湖南', value: 24},
+            {name: '江苏', value: 54},
+            {name: '江西', value: 40},
+            {name: '吉林', value: 24},
+            {name: '辽宁', value: 42},
+            {name: '内蒙古', value: 22},
+            {name: '宁夏', value: 12},
+            {name: '青海', value: 8},
+            {name: '山西', value: 60},
+            {name: '陕西', value: 24},
+            {name: '山东', value: 92},
+            {name: '上海', value: 8},
+            {name: '四川', value: 62},
+            {name: '天津', value: 12},
+            {name: '台湾', value: 1},
+            {name: '香港', value: 8},
+            {name: '西藏', value: 3},
+            {name: '新疆', value: 20},
+            {name: '云南', value: 24},
+            {name: '浙江', value: 24}
+        ];
+    map("middle-top",dataset);
+    //封装地图
+        function map(id,dataset){
+            //获得数据中的最大值
+            var maxNum=d3.max(dataset,function(d,i){
+                return d.value;
+            });
+            var minNum=d3.min(dataset,function(d,i){
+                return d.value;
+            });
+            //处理所获得的数据,转化为键值对的形式，将名字作为数据的键名，数据dataset作为数据的键值；
+            var _map=d3.map(dataset,function(d,i){
+                return d.name
+            });
+            //定义量化比例尺，使一定范围内的value数值对应指定的颜色，目的是让数值相仿的地区显示相同的颜色
+            //量化比例尺就是，线性对序列；
+            var _scale=d3.scaleQuantile()
+                .domain([0,maxNum])
+                .range(['#1CF5FF','#18C0FF','#1C7BFF','#1940FF']);
+
+            //利用D3中的JSON获取地图的JSON数据
+            d3.json('china2.json',function(error,data){
+
+                //地图第一步：定义投影
+                var _mercator=d3.geoMercator()
+                    .center([108.720703125, 34.379712580462204])
+                    .scale(500);
+                //地图第二步：定义地图的生成器
+
+                var _geoPath=d3.geoPath()
+                    .projection(_mercator);
+                //绘制画布
+
+                var _svg=d3.select('#'+id)
+                    .append('svg')
+                    .attr('id','svg2');
+                //添加Path路径
+                var _path=_svg.selectAll('path')
+                    .data(data.features)
+                    .enter()
+                    .append('path')
+                    .attr('transform','translate(-120,10)')
+                    .attr('d',function(d,i){
+                        return _geoPath(d)
+                    })
+                    .attr('fill',function(d,i){
+                        if(_map.get(d.properties.name)){
+                            return _scale(_map.get(d.properties.name).value)
+                        }else{
+                            return '#fff'
+                        }
+                    })
+                    .attr('stroke','white')//设计点击事件
+                    .on('click',function(d,i){
+
+                        _path.attr('fill',function(d,i){
+                            if(_map.get(d.properties.name)){
+                                return _scale(_map.get(d.properties.name).value)
+                            }else{
+                                return '#fff'
+                            }
+                        });
+
+                        d3.select(this).attr('fill','red');
+                    })
+                    .on('mouseover',function(d,i){//设计鼠标经过事件
+                        //将鼠标移动的位置送给显示盒子的left/top上，使其自动的显示指定鼠标的位置
+                        tootip.style('left',function(d,i){
+                            return d3.event.clientX+10+'px'
+                        })
+                            .style('top',function(d,i){
+                                return d3.event.clientY+10+'px'
+                            })
+                            .style('display','block')
+                            .html(function(){
+                                return `省份：${_map.get(d.properties.name).name}<br>旗舰店数量：${_map.get(d.properties.name).value}`
+                            })
+
+                    })
+                    .on('mousemove',function(d,i){
+                        tootip.style('left',function(d,i){
+                            return d3.event.clientX+10+'px';
+                        })
+                            .style('top',function(d,i){
+                                return d3.event.clientY+10+"px"
+                            })
+                    })
+                    .on('mouseout',function(){
+                        tootip.style('display','none')
+                    });
+    //设置鼠标移入的时候显示提示文字
+                var tootip=d3.select("#"+id)
+                    .append('div')
+                    .attr("id","tip");
+
+    //设置地图上显示省份
+                var _text=_svg.selectAll('text')
+                    .data(data.features)
+                    .enter()
+                    .append('text')
+                    .attr("transform",function(d,i)
+                    {
+                        if(d.properties.id =="20") //河北
+                        {
+                            return "translate("+(_geoPath.centroid(d)[0]-20)+","+ (_geoPath.centroid(d)[1]+20)+")";
+                        }
+                        return "translate("+(_geoPath.centroid(d)[0]-10)+","+ _geoPath.centroid(d)[1]+")";
+                    })
+                    .attr('dx',-120)
+                    .attr('dy',10)
+                    .text(function(d,i){
+                        return d.properties.name
+                    })
+                    .style('font-size','12px')
+                    .attr('fill','black');
+                //设计颜色的进度条---显示渐变的进度条
+
+                var defs=_svg.append('defs')
+                    .attr('id','defs');
+                var linearGradient=defs.append('linearGradient')
+                    .attr('id','linearColor')
+                    //颜色渐变的方向
+                    .attr('x1',"0%")
+                    .attr('y1',"0%")
+                    .attr('x2','100%')
+                    .attr('y2','0%');
+                //设置矩形开始的颜色
+                var stop1=linearGradient.append('stop')
+                    .attr('id','stop1')
+                    .attr('offset','0%')
+                    .attr('stop-color','#1CF5FF');
+                var stop2=linearGradient.append('stop')
+                    .attr('id','stop2')
+                    .attr('offset','100%')
+                    .attr('stop-color','#1940FF');
+                var colorRect=_svg.append('rect')
+                    .attr('x',30)
+                    .attr('y',390)
+                    .attr('width',200)
+                    .attr('height',20)
+                    .style('fill',"url(#"+linearGradient.attr("id")+")");
+    //设置进度条上面的文字
+                //数据初值
+                var startText=_svg.append('text')
+                    .attr('id','startText')
+                    .attr('x',30)
+                    .attr('y',385)
+                    .attr("fill",'white')
+                    .style('font-size','13px')
+                    .text(0);
+                //数据中间值
+                var centerText=_svg.append('text')
+                    .attr('id','centerText')
+                    .attr("fill",'white')
+                    .style('font-size','13px')
+                    .attr('x',110)
+                    .attr('y',385)
+                    .text(parseInt((minNum+maxNum)/2));
+                //数据末值
+                var endText=_svg.append('text')
+                    .attr('id','endText')
+                    .attr("fill",'white')
+                    .style('font-size','13px')
+                    .attr('x',220)
+                    .attr('y',385)
+                    .text(maxNum)
+            })
+
+        }
+
+        /************************右边上方条形图的设计---各个品牌的销量情况对比******************/
+//定义数据-----各个品牌的销量
+    var data1=[173865,340801,155205,390488,180008,643494,311967,1171202,210790,222676];
+    var dataPai=[17.3865,34.0801,15.5205,39.0488,18.0008,64.3494,31.1967,117.1202,21.0790,22.2676];
+var content1=['志高','新飞','西门子','容声','美菱','美的','康佳','海尔','奥克斯','Tcl'];
+// var content2=content1.reverse();
+//console.log(content2)
+        //开始条形图的绘制
+    tiaoDraw("right-top",dataPai,content1,"十大品牌冰箱的销量对比分析");
+function tiaoDraw(id,dataPai,content1,title){
+    var rectHeight=25;//设计条形图的高度
+    var _svg=d3.select('#'+id)
+        .append('svg')
+        .attr('id','svg4')
+        .style('padding','20px');//绘制画布
+    /***************设计条形图的标题*****************/
+    var _tiaoTitle=_svg.append('g')
+        .attr('id','title2')
+        .attr('transform','translate(35,10)');
+    var _title=_tiaoTitle.append('text')
+        .attr('fill','white')
+        .style('font-size','20px')
+        .text(title);
+
+    //设计矩形比例尺也就是销量的比例尺
+    var rectScale=d3.scaleLinear()
+        .domain([0,d3.max(dataPai)])//定义域
+        .nice()
+        .range([0,250]);//值域
+    //定义坐标轴的比例尺
+    var xyScale=d3.scaleBand()
+        .domain(content1)
+        .range([0,240]);
+
+    var _rectGroup=_svg.append('g')
+        .attr('id','rectGroup')
+        .attr('transform','translate(5,40)');
+
+    //添加矩形元素
+    var _rect=_rectGroup.selectAll('rect')
+        .data(dataPai)
+        .enter()
+        .append('rect')
+        .attr('class','rect')
+        .attr('width',0)
+        .attr('height',"20")
+        .attr('x',rectHeight)
+        .attr('y',function(d,i){
+            return i*rectHeight
+        })
+        .transition()//开始过渡效果
+        .duration(1000)
+        .delay(function(d,i){
+            return 200*i
+        })
+        .attr('x',rectHeight)
+        .attr('y',function(d,i){
+            return i*rectHeight
+        })
+        .attr('width',function(d){
+            return rectScale(d)
+        })
+        .attr('fill','rgb(0,255,255)')
+        .attr('height',rectHeight-5);
+
+    /****************添加文字***********************/
+    var texts=_rectGroup.selectAll(".MyText")
+        .data(dataPai)
+        .enter()
+        .append('text')
+        .attr('class','MyText')
+        .transition()//设置过渡效果
+        .duration(1000)
+        .delay(function(d,i){
+            return 200*i
+        })
+        .attr('x',function(d,i){
+            return rectScale(d)-20
+        })
+        .attr('y',function(d,i){
+            return i*rectHeight;
+        })
+        .attr('dx',48)
+        .attr('dy',16)
+        .text(function(d,i){
+            return content1[i]+":销量"+d+"万";
+        });
+
+    /*****************设计点击事件使条形图显示伸展动画**********************/
+
+
+    $("#"+id).click(function(){
+
+        if($("svg .rect").attr('width')!=="0"){
+            _svg.selectAll('.rect')
+                .transition()
+                .duration(1000)
+                .delay(function(d,i){
+                    return 200*i
+                })
+                .attr('width',0);
+            _svg.selectAll('.MyText')
+                .transition()
+                .duration(1000)
+                .delay(function(d,i){
+                    return 200*i
+                })
+                .style('opacity','0')
+        }else{
+            _svg.selectAll('.rect')
+                .transition()
+                .duration(1000)
+                .delay(function(d,i){
+                    return 200*i
+                })
+                .attr('width',function(d,i){
+                    return rectScale(d)
+                });
+            _svg.selectAll('.MyText')
+                .transition()
+                .duration(1000)
+                .delay(function(d,i){
+                    return 200*i
+                })
+                .style('opacity','1')
+        }
+    });
+
+    /*****************设计坐标轴的比例尺显示**********************/
+    var axis=d3.axisBottom()
+        .scale(rectScale)
+        .ticks(5);
+    //指定刻度的数量
+    var axis2=d3.axisLeft()
+        .scale(xyScale);
+
+
+    _svg.append('g')
+        .attr('class','axis')
+        .attr('transform','translate(29,285)')
+        .call(axis);
+    _svg.append('g')
+        .attr('class','axis')
+        .attr('transform','translate(29,45)')
+        .call(axis2);
+
+}
+
+    /****************************中间地图的设置******************/
+//定义全部的数据
+    var dataAllNum=[113200,95358,63476,206448,65304,73969,44433,66145,73238,88910,133544,91978,56799];
+    var dataAllPrice=[2.47,2.30,1.46,6.12,1.69,1.99,1.10,1.51,1.68,1.97,3.35,2.01,1.32];
+    //定义淘宝的数据
+    var dataTaoNum=[12649,9402,7650,6472,3829,3140,1470,2122,2496,2973,3000,2851,1765];
+    var dataTaoPrice=[0.29,0.23,0.20,0.16,0.08,0.11,0.04,0.07,0.06,0.07,0.08,0.08,0.05];
+    //定义天猫的数据
+    var dataTanNum=[100551,85956,55826,199976,61475,70829,42963,64023,70742,85937,130544,89127,55034];
+    var dataTanPrice=[2.18,2.07,1.26,5.96,1.61,1.88,1.06,1.44,1.62,1.89,3.27,1.95,1.27];
+    //创建横坐标的数据
+    var xdata=['201708','201709','201710','201711','201712','201801','201802','201803','201804','201805','201806','201807','201808'];
+    barLineDraw("middle-bottom-bottom",xdata,dataAllNum,dataAllPrice);
+
+//第一步获取下拉菜单中所选内容的value属性
+    var select=document.getElementById('select');
+    select.onchange=function(){//获得内容改变的value值的大小，以便抽取指定的内容数据
+       if(this.value==0){
+           $("#middle-bottom-bottom").html('');
+           barLineDraw("middle-bottom-bottom",xdata,dataAllNum,dataAllPrice);
+       }else if(this.value==1){
+           $("#middle-bottom-bottom").html('');
+           barLineDraw("middle-bottom-bottom",xdata,dataTaoNum,dataTaoPrice);
+       }else if(this.value==2){
+           $("#middle-bottom-bottom").html('');
+           barLineDraw("middle-bottom-bottom",xdata,dataTanNum,dataTanPrice);
+       }
+    };
+
+/*********************封装柱状线图**************************/
+
+function barLineDraw(id,xData,data1,data2){
+    //绘制画布
+    var _svg=d3.select("#"+id)
+        .append("svg")
+        .attr('id','svg3');
+    var yData=data1;
+    var y2Data=data2;
+    //处理数据
+    var xyData=d3.zip(xData,yData);
+    var xy2Data=d3.zip(xData,y2Data);
+    //定义颜色
+    var colors=['#0EFFF8','#0EFFF8','#17A5FF','#0FF0FF','#17A5FF','#17BBFF','#17A5FF','#40A6FF','#3E9AFF','#46A9FF','#0EFFF8','#0FF0FF','#13D6FF','#0FF0FF','#13D6FF','#17BBFF','#17A5FF','#17A5FF'];
+
+    //创建图表区的g组
+    var _barGroup=_svg.append('g')
+        .attr('id','barGroup')
+        .attr("transform",'translate(30,20)');
+
+    //创建坐标轴的g组
+    var _xGroup=_barGroup.append('g')
+        .attr('id','xGroup')
+        .attr('class','axis')
+        .attr("transform","translate(30,200)");
+    var _yGroup=_barGroup.append('g')
+        .attr('id','yGroup')
+        .attr('class','axis')
+        .attr('transform','translate(30,0)');
+    var _y2Group=_barGroup.append('g')
+        .attr('id','y2Group')
+        .attr('class','axis')
+        .attr('transform','translate(620,0)');
+
+    //绘制比例尺
+    var xScale=d3.scaleBand()
+        .domain(xData)
+        .range([0,600]);
+    var yScale=d3.scaleLinear()
+        .domain([0,d3.max(yData)])
+        .nice()
+        .range([200,0]);
+    var y2Scale=d3.scaleLinear()
+        .domain([0,d3.max(y2Data)])
+        .nice()
+        .range([200,0]);
+    //创建坐标轴生成器
+    var x=d3.axisBottom()
+        .scale(xScale);
+    var y1=d3.axisLeft()
+        .scale(yScale)
+        .ticks(5);
+    var y2=d3.axisRight()
+        .scale(y2Scale)
+        .ticks(5);
+    //创建坐标轴
+    x(_xGroup);
+    y1(_yGroup);
+    y2(_y2Group);
+
+    /*******************柱状图柱状图部分开始*************************/
+        //创建一个柱状图的g组
+    var barGroup2=_barGroup.append('g')
+            .attr('id','barGroup2')
+            .attr('transform','translate(37,0)');
+    barGroup2.selectAll('rect')
+        .data(y2Data)
+        .enter()
+        .append('rect')
+        .attr('class','barGroup2')
+        .attr('x',function(d,i){
+            return xScale(xData[i])
+        })
+        .attr('y',-100)
+        .attr('width',xScale.bandwidth()/1.9)
+        .attr('height',0)
+        .transition()
+        .duration(1000)
+        .delay(function(d,i){
+            return 200*i
+        })
+        .attr('y',function(d,i){
+            return y2Scale(d)
+        })
+        .attr("height",function(d,i){
+            return 200-y2Scale(d)
+        })
+        .attr('fill',function(d,i){
+            return colors[i]
+        });
+    /*******************柱状图折线部分开始*************************/
+    var lineGroup=_barGroup.append('g')
+        .attr('id','lineGroup')
+        .attr('transform','translate(30,10)');
+    //绘制线条生成器
+    var _barLine=d3.line()
+        .x(function(d,i){
+            return xScale(d[0])+xScale.bandwidth()/2
+        })
+        .y(function(d,i){
+            return yScale(d[1])
+
+        })
+        .curve(d3.curveNatural);
+
+    lineGroup.append('path')
+        .attr('d',_barLine(xyData))
+        .attr('stroke','white')
+        .attr('stroke-width','2px')
+        .attr('fill','none');
+
+
+    /*******************柱状图折线文本提示部分************************/
+    lineGroup.selectAll('text')
+        .data(yData)
+        .enter()
+        .append('text')
+        .text(function(d,i){
+            return yData[i]
+        })
+        .attr("x",function(d,i){
+            return xScale(xData[i])+xScale.bandwidth()/2
+        })
+        .attr("y",function(d,i){
+            return yScale(d)
+        })
+        .style("font-size","12px")
+        .attr("fill","white")
+        .attr("dx",3)
+        .attr("dy",-13);
+    /*******************柱状图柱状文本提示部分************************/
+    barGroup2.selectAll('text')
+        .data(y2Data)
+        .enter()
+        .append('text')
+        .text(function(d,i){
+            return d
+        })
+        .attr('x',function(d,i){
+            return xScale(xData[i])+xScale.bandwidth()/2
+        })
+        .attr('y',-10)
+        .attr('fill','white')
+        .style('font-size','12px')
+        .attr('dx',-21)
+        .attr('dy',30)
+        .style('display','none')
+        .transition()
+        .duration(1000)
+        .delay(function(d,i){
+            return 200*i
+        })
+        .attr('y',function(d,i){
+            return 160
+        })
+        .style('display','block');
+
+    /*******************柱状图折线圆点显示部分************************/
+    lineGroup.selectAll('circle')
+        .data(xyData)
+        .enter()
+        .append('circle')
+        .attr("cx",function(d,i){
+            return xScale(d[0])+xScale.bandwidth()/2;
+
+        })
+        .attr("cy",function(d,i) {
+            return yScale(d[1])
+        })
+        .attr('r',5)
+        .attr('fill','#7ae6ff')
+
+
+}
+
+
+
+
+
+
+/*********************右下角图形的设计*************************/
+
+
+
+
+
+
+
+
+
+
+</script>

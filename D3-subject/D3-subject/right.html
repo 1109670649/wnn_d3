@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Bubble Chart</title>
+    <meta charset="utf-8">
+
+    <link href='right_js/right.css' rel='stylesheet' type='text/css'>
+
+    <script src="jquery-1.11.3.js"></script>
+    <script src="right_js/d3.min.js"></script>
+    <script src="right_js/d3-transform.js"></script>
+    <script src="right_js/extarray.js"></script>
+    <script src="right_js/misc.js"></script>
+    <script src="right_js/micro-observer.js"></script>
+    <script src="right_js/microplugin.js"></script>
+    <script src="right_js/bubble-chart.js"></script>
+    <script src="right_js/central-click.js"></script>
+    <script src="right_js/lines.js"></script>
+    <style>
+        .bubbleChart {
+            min-width: 100px;
+            max-width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body >
+<div class="bubbleChart"></div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        var bubbleChart = new d3.svg.BubbleChart({
+            supportResponsive: true,
+            size: 500,
+            innerRadius: 100,
+            radiusMin: 40,
+            data: {
+                items: [
+                    {text: "店铺数量", count: "100",value:'↓5.00%'},
+                    {text: "单品数", count: "300",value:'↓18.66%'},
+                    {text: "收藏次数", count: "50",value:'↑3.14%'},
+                    {text: "销量", count: "500",value:'↓29.57%'},
+                    {text: "销售额", count: "400",value:'↓26.08%'}
+                ],
+                eval: function (item) {
+                    return item.count;
+                    },
+                classed: function (item) {
+                    return item.text.split(" ").join("");
+                }
+            },
+            plugins: [
+                {
+                    name: "central-click",
+                    options: {
+                        text: "",
+                        style: {
+                            "font-size": "15px",
+                            "font-style": "italic",
+                            "font-family": "Source Sans Pro, sans-serif",
+                            "text-anchor": "middle",
+                            "fill": "white"
+                        },
+                        attr: {dy: "10px"},
+
+                    }
+                },
+                {
+                    name: "lines",
+                    options: {
+                        format: [
+                            {
+                                textField: "value",
+                                classed: {count: true},
+                                style: {
+                                    "font-size": "15px",
+                                    "font-family": "Source Sans Pro, sans-serif",
+                                    "text-anchor": "middle",
+                                    fill: "white"
+                                },
+                                attr: {
+                                    dy: "0px",
+                                    x: function (d) {return d.cx;},
+                                    y: function (d) {return d.cy;}
+                                }
+                            },
+                            {
+                                textField: "text",
+                                classed: {text: true},
+                                style: {
+                                    "font-size": "15px",
+                                    "font-family": "Source Sans Pro, sans-serif",
+                                    "text-anchor": "middle",
+                                    fill: "white"
+                                },
+                                attr: {
+                                    dy: "20px",
+                                    x: function (d) {return d.cx;},
+                                    y: function (d) {return d.cy;}
+                                }
+                            }
+                        ],
+                        centralFormat: [
+                            {
+                                style: {"font-size": "30px"},
+                                attr: {}
+                            },
+                            {
+                                style: {"font-size": "25px"},
+                                attr: {dy: "25px"}
+                            }
+                        ]
+                    }
+                }]
+        });
+    });
+</script>

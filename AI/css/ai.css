@@ -1,0 +1,109 @@
+/*基本设置开始*/
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background: url("../images/bg.jpg");
+    color:white;
+}
+header{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 1.5%;
+}
+#time{
+    position: absolute;
+    right: 2%;
+    top: 4%;
+    width: 14%;
+    height: 10%;
+    font-size:18px;
+    color:#12c5b2;
+}
+#main{
+    width: 100%;
+    position: absolute;
+    height: 91%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+#left,#center,#right {
+    height: 100%;
+}
+#left{
+    width: 22.5%;
+}
+#right{
+    width: 25.5%;
+}
+#center{
+    width: 44.6%;
+}
+#left .left_top .left_con1,#left .left_bottom .left_con2{
+    width: 100%;
+    border: 1px solid #59a2c0;
+    border-radius: 5px;
+    height: 85%;
+    margin-top: .4em;
+}
+#left .left_top{
+    height: 50%;
+}
+#left .left_bottom {
+    margin-top: 2%;
+    height: 50%;
+}
+#left .left_top h3,#left .left_bottom h3{
+    line-height: 2em;
+}
+#center .cen_top,#center .cen_bottom{
+    width: 100%;
+    border: 1px solid #59a2c0;
+    border-radius: 5px;
+}
+#center .cen_top{
+    margin-top: 2.7em;
+    height: 54%;
+    /*height: 21.5em;*/
+}
+#center .cen_bottom{
+    margin-top: .8em;
+    height: 37%;
+}
+#right .right_top .right_con1,#right .right_bottom .right_con2{
+    width: 100%;
+    border: 1px solid #59a2c0;
+    border-radius: 5px;
+    height: 85%;
+    margin-top: .4em;
+}
+#right .right_top{
+    height: 50%;
+}
+#right .right_bottom {
+    margin-top: 2%;
+    height: 50%;
+}
+#right .right_top h3,#right .right_bottom h3{
+    line-height: 2em;
+}
+/*基本设置结束*/
+/*设置地图中的鼠标点击样式开始*/
+#btn{
+    position: absolute;
+    width: 40px;
+    height: 30px;
+    left: 68%;
+    top:3%;
+    opacity: 0.3;
+}
+/*设置地图中的鼠标点击样式结束*/

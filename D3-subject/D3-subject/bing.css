@@ -1,0 +1,194 @@
+/*基本设置开始*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 1366px;
+    height: 768px;
+    background: url("imgs/5.jpg")  no-repeat;
+}
+
+#nav{
+    width: 100%;
+    height: 8%;
+}
+#content{
+    width: 100%;
+    height: 92%;
+    /*border: solid 1px red;*/
+}
+
+/*基本上设置结束*/
+/*导航部分设置开始*/
+
+#nav{
+    text-align: center;
+    font-size: 30px;
+    line-height: 50px;
+    color: white;
+    font-weight: bold;
+    letter-spacing:8px;
+
+}
+/*导航部分设置结束*/
+
+/*主要内容布局开始*/
+
+
+#left,#right,#middle{
+    float: left;
+}
+#left{
+    width: 20%;
+    height: 100%;
+
+}
+#middle{
+    width: 50%;
+    height: 100%;
+}
+#right{
+    width: 30%;
+    height: 100%;
+}
+/*左边内部的设置*/
+
+#left-top{
+    width: 100%;
+    height: 40%;
+
+}
+#left-bottom{
+    width: 100%;
+    height: 60%;
+    /*background-color: moccasin;*/
+}
+/*中间内部的设置*/
+#middle-top{
+    width: 100%;
+    height: 60%;
+    /*background-color:aqua;*/
+}
+#middle-bottom{
+    width: 100%;
+    height: 40%;
+    /*background-color: peachpuff;*/
+}
+
+/*右边内部的设置*/
+#right-top{
+    width: 100%;
+    height: 50%;
+}
+#right-bottom{
+    width: 100%;
+    height: 50%;
+    /*background-color: bisque;*/
+}
+/*主要内容布局结束*/
+
+/*几个svg的尺寸的设计*/
+#svg1,#svg2,#svg3,#svg4,#svg5,#svg6{
+    width: 100%;
+    height: 100%;
+}
+.text1:nth-child(2n){
+  text-anchor:bottom;
+}
+.text1:nth-child(2n+1){
+    text-anchor:middle;
+}
+/*左下角无缝滚动*/
+#left-bottom p{
+   text-align: center;
+    color: white;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+#left-bottom #wufeng{
+    height: 85%;
+    width: 100%;
+    overflow: hidden;
+}
+#left-bottom ul{
+    font-size: 14px;
+    padding: 20px;
+    list-style: none;
+    /*//color: #73ffee;*/
+}
+#left-bottom ul li{
+    margin-bottom: 16px;
+    color: #7ae6ff;
+}
+#left-bottom ul li:hover{
+    color: red;
+}
+/*设计中间上部分的设计--地图的设计*/
+#tip{
+    width: 100px;
+    background: black;
+    opacity: .7;
+    position: fixed;
+    display: none;
+    font-size: 13px;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+}
+/*设计右边上面的条形图的样式*/
+.MyText{
+    fill: #e9f5ea;
+    font-size: 12px;
+    font-family: '微软雅黑';
+}
+.axis path,
+.axis line{
+    fill: none;
+    stroke: #7ae6ff;
+    shape-rendering: crispEdges;
+
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+    fill: #62ffff;
+
+}
+
+/*对中间下半部分样式的设置*/
+
+#choose{
+    width: 100%;
+}
+#middle-bottom-bottom{
+    width: 100%;
+    height: 86%;
+}
+#select{
+    float: right;
+    margin-right: 10px;
+    width: 60px;
+    margin-top: 20px;
+}
+#span{
+    font-size: 21px;
+    line-height: 21px;
+    color: white;
+    display: inline-block;
+    margin-left: 20%;
+    padding-top: 10px;
+}
+/*对右下角的内容进行样式设置*/
+#right-bottom iframe{
+    width: 100%;
+    height: 90%;
+}
+#right-bottom #right-bot{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
